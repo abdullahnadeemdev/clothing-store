@@ -20,10 +20,11 @@ app.use(express.json());
 app.use(cors());
 
 // Api endpoints
+app.use("/api/user", userRouter);
+
 app.get("/", (req, res) => {
   res.send("API Works");
 });
-app.use("/api/user", userRouter);
 
 // start the server
 app.listen(PORT, () => console.log(`Server started on: ${PORT}`));

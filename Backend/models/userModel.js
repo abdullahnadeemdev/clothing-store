@@ -23,6 +23,6 @@ const userSchema = new mongoose.Schema(
   { minimize: false }, // this handles empty objects when saving data, by default mongoose deletes empty objects but due to minimize it wont be deleted
 );
 
-const user = mongoose.models.user || mongoose.model("user", userSchema);
+const userModel = mongoose.models.user || mongoose.model("user", userSchema);
 
-export default user;
+export default userModel;

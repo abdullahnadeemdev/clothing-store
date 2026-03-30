@@ -141,7 +141,7 @@ const Add = ({ token }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Type Here"
-          className="w-full max-w-[400px] px-3 py-2"
+          className="w-full px-3 py-2 max-w-100"
           required
         />
       </div>
@@ -151,7 +151,7 @@ const Add = ({ token }) => {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full max-w-[400px] px-3 py-2"
+          className="w-full px-3 py-2 max-w-100"
           placeholder="Write content here..."
           id=""
         ></textarea>
@@ -187,7 +187,7 @@ const Add = ({ token }) => {
           <input
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            className="w-full px-3 py-2 sm:w-[120px]"
+            className="w-full px-3 py-2 sm:w-30"
             type="number"
             placeholder="25"
             name=""

@@ -38,21 +38,15 @@ const registerUser = async (req, res) => {
     // check user email for duplication
     const exists = await userModel.findOne({ email });
     if (exists)
-      return res
-        .status(401)
-        .json({ msg: "user already registered", success: false });
+      return res.json({ msg: "user already registered", success: false });
 
     // validation of email and password
     if (!validator.isEmail(email)) {
-      return res
-        .status(401)
-        .json({ msg: "Enter a valid email", success: false });
+      return res.json({ msg: "Enter a valid email", success: false });
     }
 
     if (password.length < 8) {
-      return res
-        .status(401)
-        .json({ msg: "Enter a strong password", success: false });
+      return res.json({ msg: "Enter a strong password", success: false });
     }
 
     // hashing user password

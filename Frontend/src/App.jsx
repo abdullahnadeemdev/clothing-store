@@ -17,6 +17,7 @@ import Orders from "./pages/Orders";
 import Auth from "./pages/Auth";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import { ToastContainer } from "react-toastify";
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -33,6 +34,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ToastContainer position="top-right" autoClose={3000} />
       <ScrollToTop />
       <div className="flex flex-col min-h-screen font-outfit">
         <Navbar />

@@ -35,6 +35,7 @@ const Auth = () => {
         if (response?.data?.success) {
           setToken(response?.data?.token);
           localStorage.setItem("token", response?.data?.token);
+          setIsLogin(true);
         } else {
           toast.error(response?.data?.msg);
         }
@@ -46,6 +47,7 @@ const Auth = () => {
         if (response.data.success) {
           setToken(response?.data?.token);
           localStorage.setItem("token", response?.data?.token);
+          setIsLogin(true);
         } else {
           toast.error(response.data.msg);
         }
@@ -54,9 +56,9 @@ const Auth = () => {
       console.log("error in login auth", error);
       toast.error(error.message);
     }
-    // dispatch(
-    //   login({ name: form.name || form.email.split("@")[0], email: form.email }),
-    // );
+    dispatch(
+      login({ name: form.name || form.email.split("@")[0], email: form.email }),
+    );
   };
 
   useEffect(() => {

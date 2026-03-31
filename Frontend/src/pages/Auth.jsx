@@ -8,17 +8,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const inputClass =
   "w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-black transition-colors placeholder:text-gray-400";
 
-const Auth = () => {
+const Auth = ({ backendUrl, token, setToken }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
-  const [token, setToken] = useState("");
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -60,12 +58,6 @@ const Auth = () => {
       login({ name: form.name || form.email.split("@")[0], email: form.email }),
     );
   };
-
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  }, [token]);
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">

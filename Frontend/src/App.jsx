@@ -2,7 +2,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  ScrollRestoration,
+  Navigate,
   useLocation,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -19,18 +19,17 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 // Scroll to top on route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+  return null;
+};
 
 const App = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [token, setToken] = useState(localStorage.getItem("token") || null);
-
-  const ScrollToTop = () => {
-    const { pathname } = useLocation();
-    useEffect(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      setToken(localStorage.getItem("token") || null);
-    }, [pathname]);
-    return null;
-  };
 
   return (
     <BrowserRouter>
@@ -45,7 +44,16 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/place-order" element={<PlaceOrder />} />
             <Route path="/orders" element={<Orders />} />
-            <Route path="/login" element={token ? <Home /> : <Auth />} />
+            <Route
+              path="/login"
+              element={
+                token ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Auth backendUrl={backendUrl} setToken={setToken} />
+                )
+              }
+            />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>

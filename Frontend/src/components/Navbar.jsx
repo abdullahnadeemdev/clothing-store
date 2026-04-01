@@ -20,26 +20,49 @@ import {
   closeProfileDropdown,
 } from "../store/slices/uiSlice";
 import { logout } from "../store/slices/authSlice";
+import axios from "axios";
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Navbar = () => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [cartCount, setCartCount] = useState(0);
   const dispatch = useDispatch();
   const location = useLocation();
   const { isMobileMenuOpen, isProfileDropdownOpen } = useSelector((s) => s.ui);
   const { user } = useSelector((s) => s.auth);
   const isAuthenticated = token ? true : false;
 
-  const logout = () => {
+  const handleLogout = () => {
     localStorage.removeItem("token");
     setToken("");
-    isAuthenticated(false);
   };
 
-  const cartCount = useSelector((s) =>
-    s.cart.items.reduce((acc, item) => acc + item.quantity, 0),
-  );
+  // const cartCount = useSelector((s) =>
+  //   s.cart.items.reduce((acc, item) => acc + item.quantity, 0),
+  // );
+
+  const cartData = async () => {
+    if (token) {
+      try {
+        const response = await axios.post(
+          backendUrl + "/api/cart/get",
+          {},
+          {
+            headers: { token },
+          },
+        );
+        setCartCount(Object.keys(response.data.cartData).length);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
   const profileRef = useRef(null);
 
+  useEffect(() => {
+    cartData();
+  }, []);
   useEffect(() => {
     dispatch(closeMobileMenu());
   }, [location, dispatch]);
@@ -142,7 +165,7 @@ const Navbar = () => {
                         </Link>
                         <button
                           onClick={() => {
-                            logout();
+                            handleLogout();
                             dispatch(logout());
                             dispatch(closeProfileDropdown());
                           }}

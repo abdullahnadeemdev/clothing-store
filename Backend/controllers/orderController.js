@@ -57,8 +57,12 @@ const allOrders = async (req, res) => {
 // order for a specific user
 const userOrders = async (req, res) => {
   try {
+    const { userId } = req.body;
+
+    const orders = await orderModel.find({ userId });
+    res.json({ success: true, orders });
   } catch (error) {
-    console.log("error in place order", error);
+    console.log("error in user orders", error);
     res.json({ success: false, msg: error.message });
   }
 };

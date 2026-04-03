@@ -45,7 +45,7 @@ const App = () => {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart token={token} />} />
             <Route path="/place-order" element={<PlaceOrder token={token} />} />
-            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders" element={<Orders token={token} />} />
             <Route
               path="/login"
               element={

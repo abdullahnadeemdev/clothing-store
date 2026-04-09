@@ -48,6 +48,8 @@ const placeOrderRazorpay = async (req, res) => {
 //All orders for admin
 const allOrders = async (req, res) => {
   try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, orders });
   } catch (error) {
     console.log("error in place order", error);
     res.json({ success: false, msg: error.message });
@@ -70,6 +72,11 @@ const userOrders = async (req, res) => {
 //change order status from admin
 const updateStatus = async (req, res) => {
   try {
+    try {
+      const { orderId, status } = req.body;
+      await orderModel.findByIdAndUpdate(orderId, { status });
+      res.json({ success: true, msg: "status updated" });
+    } catch (error) {}
   } catch (error) {
     console.log("error in place order", error);
     res.json({ success: false, msg: error.message });
